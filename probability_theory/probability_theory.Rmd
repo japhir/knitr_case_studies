@@ -19,15 +19,15 @@ output:
 knitr::opts_chunk$set(comment=NA)
 ```
 
-Formal probability theory is a rich and sophisticated field of mathematics with 
+Formal probability theory is a rich and sophisticated field of mathematics with
 a reputation for being confusing, if not outright impenetrable.  Much of that
 intimidation, however, is due not to the abstract mathematics but rather how
-they are haphazardly employed in practice.  In particular, many introductions 
-to probability theory sloppily confound the abstract mathematics with their 
-practical implementations, convoluting _what_ we can calculate in the theory 
-with _how_ we perform those calculations.  To make matters even worse, 
-probability theory is used to model a variety of subtlety different systems, 
-which then burdens the already confused mathematics with the distinct and often 
+they are haphazardly employed in practice.  In particular, many introductions
+to probability theory sloppily confound the abstract mathematics with their
+practical implementations, convoluting _what_ we can calculate in the theory
+with _how_ we perform those calculations.  To make matters even worse,
+probability theory is used to model a variety of subtlety different systems,
+which then burdens the already confused mathematics with the distinct and often
 conflicting philosophical connotations of those applications.
 
 In this case study I attempt to untangle this pedagogical knot and illuminate
@@ -47,7 +47,7 @@ of the more subtle aspects of probability theory.
 
 Let me open with a warning that the section on abstract probability theory will
 be devoid of any concrete examples.  This is not because of any conspiracy to
-confuse the reader, but rather a consequence of the fact that we cannot 
+confuse the reader, but rather a consequence of the fact that we cannot
 explicitly construct abstract probability distributions in any meaningful sense.
 Instead we must utilize problem-specific _representations_ of abstract
 probability distributions which means that concrete examples will have to wait
@@ -56,21 +56,21 @@ until we introduce these representations in Section 3.
 # Setting A Foundation {#sec:foundation}
 
 Because formal probability theory works with sets in a given space we first need
-to review the relevant results from set theory that we will need.  For a more 
-complete and rigorous, yet readable, treatment of set theory see, for example, 
+to review the relevant results from set theory that we will need.  For a more
+complete and rigorous, yet readable, treatment of set theory see, for example,
 @Folland:1999 and the appendix of @Lee:2011.
 
 A _set_ is a collection of elements and a _space_ is the collection of all
-elements under consideration.  For example, $A_{1} = \{1\}$, 
-$A_{2} = \{1, 5, 10, 12\}$, and $A_{3} = \{30, 2, 7\}$, are all sets contained 
-in the space of _natural numbers_, $\mathbb{N} = \left\{0, 1, \ldots \right\}$.  
-To denote their containment we write $A_{1} \subset \mathbb{N}$, 
+elements under consideration.  For example, $A_{1} = \{1\}$,
+$A_{2} = \{1, 5, 10, 12\}$, and $A_{3} = \{30, 2, 7\}$, are all sets contained
+in the space of _natural numbers_, $\mathbb{N} = \left\{0, 1, \ldots \right\}$.
+To denote their containment we write $A_{1} \subset \mathbb{N}$,
 $A_{2} \subset \mathbb{N}$, and $A_{3} \subset \mathbb{N}$.  Because $A_{1}$ is
 also contained in $A_{2}$ we say that $A_{1}$ is a _subset_ of $A_{2}$ and write
 $A_{1} \subset A_{2}$.
 
-A _point set_ or _atomic set_ is a set containing a single element such as 
-$\{1\}$ above.  The entire space itself is always a valid set, as is the 
+A _point set_ or _atomic set_ is a set containing a single element such as
+$\{1\}$ above.  The entire space itself is always a valid set, as is the
 _empty set_ or _null set_, $\emptyset$, which contains no elements at all.
 
 Sets are often defined implicitly via an inclusion criterion.  These sets are
@@ -85,7 +85,7 @@ $$
 $$
 
 Throughout this case study we will use four sets to demonstrate the operations
-of set theory and probability theory.  Our first two sets are finite intervals 
+of set theory and probability theory.  Our first two sets are finite intervals
 within the natural numbers,
 $$
 \begin{align*}
@@ -121,7 +121,7 @@ B2_max <- 3
 
 ## Set Operations
 
-There are three natural operations between sets: _set complement_, _set union_, 
+There are three natural operations between sets: _set complement_, _set union_,
 and _set intersection_.
 
 ### Set Complement
@@ -137,7 +137,7 @@ $$
 ![](figures/sets/complement/complement.png)
 <br><br>
 
-For example, the complement of $A_{1}$ contains all of the positive integers 
+For example, the complement of $A_{1}$ contains all of the positive integers
 below 4 and above 7,
 $$
 A_{1}^{c} = \left\{ x \in \mathbb{N} \mid x < 4 \text{ OR } x > 7 \right\}.
@@ -186,8 +186,8 @@ The union of any set and the empty set is just that set, $A \cup \emptyset = A$.
 
 ### Set Intersection
 
-The set intersection is another binary operator that maps two sets into a third 
-set.  The intersection of two sets, $A_{1} \cap A_{2}$, is defined as the set of 
+The set intersection is another binary operator that maps two sets into a third
+set.  The intersection of two sets, $A_{1} \cap A_{2}$, is defined as the set of
 elements included in _both_ sets,
 $$
 A_{1} \cap A_{2} = \left\{ x \in X \mid x \in A_{1} \text{ AND } x \in A_{2} \right\}.
@@ -220,35 +220,35 @@ $A \cap \emptyset = \emptyset$.
 
 ## Sigma Algebras {#sec:sigma}
 
-The collection of all sets in a space, $X$, is called the _power set_, 
-$\mathcal{P}(X)$.  The power set is massive; it contains the empty set, the 
-entire space, all of the atomic sets, and more. 
+The collection of all sets in a space, $X$, is called the _power set_,
+$\mathcal{P}(X)$.  The power set is massive; it contains the empty set, the
+entire space, all of the atomic sets, and more.
 
 <br><br>
 ![](figures/sets/set_examples/set_examples.png)
-<br><br> 
+<br><br>
 
-Unfortunately, even if the space $X$ is well-behaved, the corresponding power 
+Unfortunately, even if the space $X$ is well-behaved, the corresponding power
 set can also contain some less mathematically savory elements.  For example,
 making a seemingly innocent assumption known as the Axiom of Choice one can show
-that there exist sets in the real numbers that cannot be explicitly 
+that there exist sets in the real numbers that cannot be explicitly
 constructed.  In particular, one can show that these non-constructible sets
 feature some very odd properties.
 
 Consequently, when dealing with sets we often want to consider not the entire
 power set but rather a restriction of the power set that avoids any pathological
-sets that might be hiding. We have to be careful, however, to apply this 
-restriction in a self-consistent manner.  In particular, we want our restriction 
-to be _closed_ under the three natural set operations so that we don't have to 
-worry about straying outside of our carefully chosen restriction.  
+sets that might be hiding. We have to be careful, however, to apply this
+restriction in a self-consistent manner.  In particular, we want our restriction
+to be _closed_ under the three natural set operations so that we don't have to
+worry about straying outside of our carefully chosen restriction.
 
-For example, if a set $A$ is in our restriction then we want its complement 
-$A^{c}$ to also be in our restriction.   If $A_{1}$ and $A_{2}$ are in our 
-restriction then we also want the restriction to contain the union, 
-$A_{1} \cup A_{2}$, and the intersection, $A_{1} \cap A_{2}$.  In fact we often 
-will need our restrictions to be closed under a countably infinite, or 
-_countable_, number of unions or intersections.  More precisely, given a 
-countable collection of sets, $\left\{A_{1}, A_{2}, \ldots\right\}$, we want 
+For example, if a set $A$ is in our restriction then we want its complement
+$A^{c}$ to also be in our restriction.   If $A_{1}$ and $A_{2}$ are in our
+restriction then we also want the restriction to contain the union,
+$A_{1} \cup A_{2}$, and the intersection, $A_{1} \cap A_{2}$.  In fact we often
+will need our restrictions to be closed under a countably infinite, or
+_countable_, number of unions or intersections.  More precisely, given a
+countable collection of sets, $\left\{A_{1}, A_{2}, \ldots\right\}$, we want
 both the countable union,
 $$
 \cup_{n = 1}^{\infty} A_{n},
@@ -266,19 +266,19 @@ $\mathcal{X}$.  A given space will typically admit many $\sigma$-algebras,
 although only a few will be of practical interest. For example, we can always
 take the trivial $\sigma$-algebra $\mathcal{X} = \{ \emptyset, X \}$.
 
-An important benefit of these closure properties is that they ensure that any 
+An important benefit of these closure properties is that they ensure that any
 non-constructible sets that may be lurking within the power set don't persist
-into a $\sigma$-algebra.  Consequently identifying any $\sigma$-algebra removes 
+into a $\sigma$-algebra.  Consequently identifying any $\sigma$-algebra removes
 many of the pathological behaviors that arise in uncountably-large spaces.
 
 Conveniently, many spaces are equipped with structures that define _natural_
-$\sigma$-algebras.  In particular, all of the spaces that we typically deal with 
+$\sigma$-algebras.  In particular, all of the spaces that we typically deal with
 in practical problems, such as the integers and the real numbers, have natural
-$\sigma$-algebras.  Consequently, in practice we don't have to spend any time 
-worrying about explicitly constructing a $\sigma$-algebra, and the technical 
-need to restrict the power set to a $\sigma$-algebra has little impact on the 
-practical use of sets.  That said, because avoiding the pathologies of 
-non-constructible sets is critical to a mathematically well-defined probability 
+$\sigma$-algebras.  Consequently, in practice we don't have to spend any time
+worrying about explicitly constructing a $\sigma$-algebra, and the technical
+need to restrict the power set to a $\sigma$-algebra has little impact on the
+practical use of sets.  That said, because avoiding the pathologies of
+non-constructible sets is critical to a mathematically well-defined probability
 theory, $\sigma$-algebras will be a common occurance.
 
 For more on these natural $\sigma$-algebras see the following optional section.
@@ -306,10 +306,10 @@ For example, the topologically open sets are not closed under the complement
 operation.  If we combine all of the topologically open sets and topologically
 closed sets defined by a topology, however, then we get a proper
 $\sigma$-algebra.  $\sigma$-algebras constructed from the topology of a space
-in this way are denoted _Borel $\sigma$-algebras_ [@Folland:1999].  
+in this way are denoted _Borel $\sigma$-algebras_ [@Folland:1999].
 
-Because the typical spaces we'll consider all have natural topologies they 
-consequently also have natural Borel $\sigma$-algebras that exclude pathological 
+Because the typical spaces we'll consider all have natural topologies they
+consequently also have natural Borel $\sigma$-algebras that exclude pathological
 sets that can cause problems when trying to define objects like probabilities.
 
 ## Functions
@@ -358,7 +358,7 @@ This induced map is also known as a _pullback_ map over sets.
 ![](figures/function_inverse_set/function_inverse_set.png)
 <br><br>
 
-These induced maps will, in general, be between the power sets of the two 
+These induced maps will, in general, be between the power sets of the two
 spaces,
 $$
 \begin{align*}
@@ -367,10 +367,10 @@ f_{*} &: \mathcal{P}(X) \rightarrow \mathcal{P}(Y)
 f^{*} &: \mathcal{P}(Y) \rightarrow \mathcal{P}(X),
 \end{align*}
 $$
-but they need not respect any restriction of the power sets that we might be 
+but they need not respect any restriction of the power sets that we might be
 considering, in particular a choice $\sigma$-algebras on the input and output
-spaces.  When dealing with $\sigma$-algebras, then, we often want to limit our 
-consideration to only those special functions that induce maps between the 
+spaces.  When dealing with $\sigma$-algebras, then, we often want to limit our
+consideration to only those special functions that induce maps between the
 $\sigma$-algebras themselves,
 $$
 \begin{align*}
@@ -385,40 +385,40 @@ $$
 Once the philosophy has been stripped away, probability theory is simply the
 study of an object, a probability distribution that assigns values to sets,
 and the transformations of that object.  To be fair this isn't particularly
-surprising as most of pure mathematics ultimately reduces to studying objects 
-and their transformations!  Fortunately, the basic concepts of probability 
-distributions and their manipulations are reasonably intuitive, even from this 
+surprising as most of pure mathematics ultimately reduces to studying objects
+and their transformations!  Fortunately, the basic concepts of probability
+distributions and their manipulations are reasonably intuitive, even from this
 more formal perspective.
 
 Probability textbooks tend to be too simple, ignoring many important concepts
-and succumbing to the pedagogical issues I mentioned in the introduction, or 
-too complex, focusing on technical details quickly falling beyond the 
+and succumbing to the pedagogical issues I mentioned in the introduction, or
+too complex, focusing on technical details quickly falling beyond the
 proficiency of many readers.  My favorite treatment of the more formal
 details of probability theory, and its predecessor measure theory, is
 @Folland:1999, who spends significant time discussing concepts between the
-technical details.  
+technical details.
 
 Working through those details, however, is a serious investment in time.
-In this section we instead review those concepts relevant to the practical 
-application of probability theory, and some of the details necessary to piece 
+In this section we instead review those concepts relevant to the practical
+application of probability theory, and some of the details necessary to piece
 those concepts together and form a self-contained treatment.
 
 ## Probability Distributions {#sec:distribution}
 
 From an abstract mathematical perspective, probability is surprisingly boring.
-Probability is simply a positive, conserved quantity that we want to 
-_distribute_ across a given space -- in particular it does not necessarily refer 
-to anything inherently random or uncertain.  If we rescale this distribution in 
+Probability is simply a positive, conserved quantity that we want to
+_distribute_ across a given space -- in particular it does not necessarily refer
+to anything inherently random or uncertain.  If we rescale this distribution in
 terms of the relative proportions of the total amount then regardless of the
-nature of this conserved quantity we can treat it as unit-less with total 
+nature of this conserved quantity we can treat it as unit-less with total
 amounting to 1.
 
 A _probability distribution_ defines a mathematically self-consistent allocation
 of this conserved quantity across $X$.  If $A$ is a subset of $X$ then we write
-$\mathbb{P}_{\pi}[A]$ as the probability assigned to $A$ by the probability 
-distribution $\pi$.  
+$\mathbb{P}_{\pi}[A]$ as the probability assigned to $A$ by the probability
+distribution $\pi$.
 
-This allocation should be _exhaustive_ such that all of it is distributed into 
+This allocation should be _exhaustive_ such that all of it is distributed into
 $X$.  In other words we require that the probability assigned to the full space
 is always the total probabilty available, $\mathbb{P}_{\pi} [X] = 1$.
 
@@ -426,8 +426,8 @@ is always the total probabilty available, $\mathbb{P}_{\pi} [X] = 1$.
 ![](figures/distribution/total/total.png)
 <br><br>
 
-Moreover, any distribution of probability should _globally consistent_ over any 
-disjoint decomposition of the total space.  For example, consider the 
+Moreover, any distribution of probability should be _globally consistent_ over any
+disjoint decomposition of the total space.  For example, consider the
 decomposition of $X$ into the two disjoint sets $A_{1}$ and $A_{2}$.
 
 <br><br>
@@ -453,8 +453,8 @@ sum to $1$.
 ![](figures/distribution/global_consistency/global_consistency.png)
 <br><br>
 
-Indeed we'll want to extend this behavior to local consistency of probability
-distribution over the disjoint decomposition of any set.  For example, consider 
+Indeed we'll want to extend this behavior to local consistency of the probability
+distribution over the disjoint decomposition of any set.  For example, consider
 the decomposition of $A_{1}$ into the two disjoint sets $A_{3}$ and $A_{4}$.
 
 <br><br>
@@ -488,25 +488,25 @@ $$
 ![](figures/distribution/local_implies_global/local_implies_global.png)
 <br><br>
 
-More formally we want the allocation of probability to any collection of 
-disjoint sets, $A_{n} \cap A_{m} = 0, n \ne m$, to be the same as the allocation 
+More formally we want the allocation of probability to any collection of
+disjoint sets, $A_{n} \cap A_{m} = 0, n \ne m$, to be the same as the allocation
 to the union of those sets,
 $$
 \sum_{n = 1}^{N} \mathbb{P}_{\pi} [ A_{n} ]
 =
 \mathbb{P}_{\pi} [ \cup_{n = 1}^{N} A_{n} ],
 $$
-so that no matter how we decompose the space $X$, or any subsets of $X$, we 
+so that no matter how we decompose the space $X$, or any subsets of $X$, we
 don't lose any probability.
 
-Consistency over any finite collection of sets is known as _finite additivity_ 
-and this would be sufficient if there were only a finite number of subsets in 
-$X$.  Finite additivity, however, is insufficient for distributing 
-probability across spaces which feature a countably infinite number of subsets. 
-In particular consider computing the probability assigned to circle using only
+Consistency over any finite collection of sets is known as _finite additivity_
+and this would be sufficient if there were only a finite number of subsets in
+$X$.  Finite additivity, however, is insufficient for distributing
+probability across spaces which feature a countably infinite number of subsets.
+In particular consider computing the probability assigned to the circle using only
 rectangles, which is how distributions across the real numbers are more formally
 derived.  No finite number of disjoint rectangles will exactly cover the circle
-and hence yield the desired probability, but the limit of a countably infinite 
+and hence yield the desired probability, but the limit of a countably infinite
 number of them will.
 
 <br><br>
@@ -521,12 +521,12 @@ $$
 \mathbb{P}_{\pi} [ \cup_{n = 1}^{\infty} A_{n} ].
 $$
 
-This all sounds well and good, but it turns out that we cannot construct 
-probability distributions that satisfy _any_ kind of additivity for _all_ 
+This all sounds well and good, but it turns out that we cannot construct
+probability distributions that satisfy _any_ kind of additivity for _all_
 subsets of _every_ space.  The problem?  Those non-constructible sets to which
 we were introduced in [Section 1.2](#sec:sigma).  It turns out that when a space
 features non-constructible subsets we can combine a finite number of them,
-$\{ \mathfrak{A}_{1}, \ldots, \mathfrak{A}_{N} \}$, in certain way to achieve 
+$\{ \mathfrak{A}_{1}, \ldots, \mathfrak{A}_{N} \}$, in a certain way to achieve
 _sub-additivity_,
 $$
 \sum_{n = 1}^{N} \mathbb{P}_{\pi} [ \mathfrak{A}_{n} ]
@@ -542,13 +542,13 @@ $$
 \mathbb{P}_{\pi} [ \cup_{n = 1}^{N} \mathfrak{A}_{n} ]!
 $$
 
-In other words, there is no way that we can engineer a self-consistent 
+In other words, there is no way that we can engineer a self-consistent
 distribution of probability across non-constructible sets.  Fortunately this
-pathological behavior isn't terminal because we already know how to avoid 
-non-constructible sets in practice!  All we have to do is limit our probability 
+pathological behavior isn't terminal because we already know how to avoid
+non-constructible sets in practice!  All we have to do is limit our probability
 distributions to any well-defined $\sigma$-algebra, $\mathcal{X}$.
 
-These minimal properties needed to achieve the probability distribution behavior 
+These minimal properties needed to achieve the probability distribution behavior
 that we're after are formalized in _Kolmogorov's axioms_:
 
 - A probability distribution $\pi$ on a space $X$ with $\sigma$-algebra
@@ -584,27 +584,27 @@ $$
 
 With a little work one can also derive the probability sum rules,
 $$
-\mathbb{P}_{\pi}[ A_{1} \cup A_{2} ] = 
+\mathbb{P}_{\pi}[ A_{1} \cup A_{2} ] =
 \mathbb{P}_{\pi}[ A_{1} ] + \mathbb{P}_{\pi}[ A_{2} ]
 - \mathbb{P}_{\pi}[ A_{1} \cap A_{2} ],
 $$
 and
 $$
-\mathbb{P}_{\pi}[ A_{1} \cap A_{2} ] = 
+\mathbb{P}_{\pi}[ A_{1} \cap A_{2} ] =
 \mathbb{P}_{\pi}[ A_{1} ] + \mathbb{P}_{\pi}[ A_{2} ]
 - \mathbb{P}_{\pi}[ A_{1} \cup A_{2} ].
 $$
 
 These rules can be used to construct explicit probability distributions when
 the $\sigma$-algebra is small enough. For example, consider the binary space
-$X = \{0, 1\}$.  In this case the valid $\sigma$-algebra is the entire power 
-set consisting of the empty set, $A_{1} = \emptyset$, the atomic sets, 
+$X = \{0, 1\}$.  In this case the valid $\sigma$-algebra is the entire power
+set consisting of the empty set, $A_{1} = \emptyset$, the atomic sets,
 $A_{2} = \{ 0 \}$ and $A_{3} = \{ 1 \}$, and the entire space, $A_{4} = X$.
 What probabilities can we assign to these sets?  The axioms require that
 $\mathbb{P}_{\pi} [ A_{4} ] = 1$, and the complement rule then requires that
 $\mathbb{P}_{\pi} [ A_{1} ] = 0$.  We are free to assign any probability to one of
 the atomic sets, so we can take $\mathbb{P}_{\pi}  [ A_{3} ] = p$ in which case
-the complement rule requires that $\mathbb{P}_{\pi}  [ A_{2} ] = 1 - p$.  In 
+the complement rule requires that $\mathbb{P}_{\pi}  [ A_{2} ] = 1 - p$.  In
 other words, _any_ probability distribution on the binary space $\{0, 1\}$ is
 completely specified by the parameter $p$ and the resulting allocation
 $$
@@ -619,16 +619,16 @@ $$
 \end{align*}
 $$
 
-A probability distribution defined by Kolmogorov's axioms is completely 
-specified by the _probability triplet_ $(X, \mathcal{X}, \pi)$ which is often 
+A probability distribution defined by Kolmogorov's axioms is completely
+specified by the _probability triplet_ $(X, \mathcal{X}, \pi)$ which is often
 denoted more compactly as
 $$
 x \sim \pi.
 $$
-Here the point $x \in X$ simply denotes denoting the space $X$, $\pi$ denotes 
-the probability distribution, and a valid $\sigma$-algebra is just assumed.  
-Care must be taken to not over interpret this notation -- in particular it says 
-nothing about individual points $x \in X$ but rather denotes a probability 
+Here the point $x \in X$ simply denotes the space $X$, $\pi$ denotes
+the probability distribution, and a valid $\sigma$-algebra is just assumed.
+Care must be taken to not over interpret this notation -- in particular it says
+nothing about individual points $x \in X$ but rather denotes a probability
 distribution over all sets in the assumed $\sigma$-algebra.
 
 ## Measurable Transformations {#sec:measurable_transformations}
@@ -661,14 +661,14 @@ $Y$.
 
 ### Projections
 
-Measurable transformations can be used to project a probability distribution 
-over a space onto a probability distribution over a lower-dimensional subspace.  
-Let $\varpi: X \rightarrow Y$ be a _projection operator_ that maps points in a 
-space $X$ to points in the subspace $Y \subset X$.  It turns out that in this 
-case a $\sigma$-algebra on $X$ naturally defines a $\sigma$-algebra on $Y$ and 
-the projection operator is measurable with respect to this choice.  Consequently 
-any _joint probability distribution_ on $X$ will transform into a unique 
-_marginal probability distribution_ on $Y$.  More commonly we say that we 
+Measurable transformations can be used to project a probability distribution
+over a space onto a probability distribution over a lower-dimensional subspace.
+Let $\varpi: X \rightarrow Y$ be a _projection operator_ that maps points in a
+space $X$ to points in the subspace $Y \subset X$.  It turns out that in this
+case a $\sigma$-algebra on $X$ naturally defines a $\sigma$-algebra on $Y$ and
+the projection operator is measurable with respect to this choice.  Consequently
+any _joint probability distribution_ on $X$ will transform into a unique
+_marginal probability distribution_ on $Y$.  More commonly we say that we
 _marginalize out_ the complementary subspace, $Y^{C}$.
 
 <br><br>
@@ -699,20 +699,20 @@ $Z = \mathbb{R}$.
 
 ### Reparameterizations
 
-Another important class of measurable functions are those one-to-one maps for 
+Another important class of measurable functions are those one-to-one maps for
 which $f(A) \in \mathcal{Y}$ for any $A \in \mathcal{X}$ in addition to
 $f^{-1}(B) \in \mathcal{X}$ for any $B \in \mathcal{Y}$.  In this case $f$
 not only transforms a probability distribution on $X$ into a probability
-distribution on $Y$ but also transforms a probability distribution on $Y$ into 
-a probability distribution on $X$.  Moreover, transforming a distribution on 
-$X$ to one on $Y$ and back perfectly restores the original distribution -- 
-unlike projections these _reparameterizations_ preserve all information encoded 
+distribution on $Y$ but also transforms a probability distribution on $Y$ into
+a probability distribution on $X$.  Moreover, transforming a distribution on
+$X$ to one on $Y$ and back perfectly restores the original distribution --
+unlike projections these _reparameterizations_ preserve all information encoded
 in a probability distribution.
 
 In this case $(X, \mathcal{X}, \pi)$ and $(Y, \mathcal{Y}, \pi_{*})$ are really
-just two different manifestations, or _parameterizations_, of the same _abstract 
-probability system_.  The two parameterizations, for example, might correspond 
-to different choices of coordinate system, different choices of units, or 
+just two different manifestations, or _parameterizations_, of the same _abstract
+probability system_.  The two parameterizations, for example, might correspond
+to different choices of coordinate system, different choices of units, or
 different choices of language dialect capable of the same descriptions.  The
 reparameterizations then translate from one equivalent manifestation to another.
 
@@ -723,14 +723,14 @@ can be signficantly more subtle.
 
 # Great Expectations {#sec:expectation_values}
 
-Conveniently the distribution of probability across a space also provides a 
-supplementary function: it allows us to summarize how functions of the form 
+Conveniently the distribution of probability across a space also provides a
+supplementary function: it allows us to summarize how functions of the form
 $f: X \rightarrow \mathbb{R}$ behave.
 
 Without probability the only way that we can summarize the behavior of such a
 function is through topological information such as minima and maxima.  The
 introduction of a probability distribution, however, allows us to _average_ the
-behavior of a function across it input domain.  For example, consider the 
+behavior of a function across it input domain.  For example, consider the
 function below along with two sets, $A_{1}$ and $A_{2}$.
 
 <br><br>
@@ -741,9 +741,9 @@ If $\mathbb{P}_{\pi}[ A_{1} ] > \mathbb{P}_{\pi}[ A_{2} ]$ then the behavior of
 $f$ within $A_{1}$ is more relevant to an average.
 
 _Expectation values_, $\mathbb{E}_{\pi}[f]$, reduce a function to a single real
-number by weighting the function output at every point by the probability 
+number by weighting the function output at every point by the probability
 distributed around that point.  More formally, let $\mathcal{C}$ be the space
-of all functions from our target space to the real numbers, 
+of all functions from our target space to the real numbers,
 $f : X \rightarrow \mathbb{R}$.  Expectation is then a map
 $$
 \begin{alignat*}{6}
@@ -754,8 +754,8 @@ $$
 $$
 
 Formalizing this expectation that weights a function with probabilities is
-subtle, but we can build up some intuition using one class of functions for 
-which the process is straightforward.  An _indicator function_ is a function 
+subtle, but we can build up some intuition using one class of functions for
+which the process is straightforward.  An _indicator function_ is a function
 that vanishes outside of a given set,
 $$
 \mathbb{I}_{A} [x] =
@@ -771,8 +771,8 @@ $$
 ![](figures/indicator_function/indicator_function.png)
 <br><br>
 
-Because the indicator function is constant within its defining set, $A$, we can 
-simply stipulate its expectation value to be the weight assigned that set, which 
+Because the indicator function is constant within its defining set, $A$, we can
+simply stipulate its expectation value to be the weight assigned that set, which
 is just the probability it is allocated,
 $$
 \mathbb{E}_{\pi} [ \mathbb{I}_{A} ] \equiv \mathbb{P}_{\pi} [ A ].
@@ -815,7 +815,7 @@ We can then use simple functions to approximate an everywhere-positive function,
 $g : X \rightarrow \mathbb{R}^{+}$.  A simple function with only a few terms
 defined over only a few sets will yield a poor approximation to $g$, but as we
 consider more terms and more sets we can build an increasingly accurate
-approximation.  In particular, because of countable additivity we can always 
+approximation.  In particular, because of countable additivity we can always
 construct a simple function that approximates $f$ with arbitrary accuracy while
 remaining bounded above by $f$.
 
@@ -823,7 +823,7 @@ remaining bounded above by $f$.
 ![](figures/lebesgue/lebesgue.png)
 <br><br>
 
-We can then define the expectation of an everywhere-positive function as the 
+We can then define the expectation of an everywhere-positive function as the
 expectation of this approximating simple function.  Because we were careful
 to consider only simple functions bounded by $f$ we can also define the
 expectation of $f$ as the largest expectation of all bounded simple functions,
@@ -860,27 +860,27 @@ special case.
 
 Expectation values serve two powerful purposes.  As we saw above they can be
 used to summarize the behavior of a function $f : X \rightarrow \mathbb{R}$ in
-the context of a given probability distribution.  We can also invert this 
+the context of a given probability distribution.  We can also invert this
 perspective, however, and use the expectation value of certain functions to
-characterize the given probability distribution itself.  In this section I'll 
-introduce certain functions whose expectations are particularly useful in 
-interrogating the properties of probability distributions defined on certain 
-spaces. 
+characterize the given probability distribution itself.  In this section I'll
+introduce certain functions whose expectations are particularly useful in
+interrogating the properties of probability distributions defined on certain
+spaces.
 
 First, however, a word of caution.  The structure of these special functions,
-and hence the interpretation of these expectation values, is specific to the 
-context of a given space and will not, in general, push forward along a 
-transformation to another space.  In particular, the interpretation is unique 
-to a given parameterization and will change under reparameterizations even 
+and hence the interpretation of these expectation values, is specific to the
+context of a given space and will not, in general, push forward along a
+transformation to another space.  In particular, the interpretation is unique
+to a given parameterization and will change under reparameterizations even
 though the abstract probabilistic system does not.
 
-If desired we can preserve the value of an expectation value if we first push 
-the special function forward along the transformation and only then perform an 
+If desired we can preserve the value of an expectation value if we first push
+the special function forward along the transformation and only then perform an
 expectation.  Expectation and transformation do not, in general, commute!
 
 ### This Distribution and I Are Having a Moment
 
-When our target space is a subset of the real line, $X \subseteq \mathbb{R}$, 
+When our target space is a subset of the real line, $X \subseteq \mathbb{R}$,
 there is a natural _embedding_ of $X$ into $\mathbb{R}$,
 $$
 \begin{alignat*}{4}
@@ -897,8 +897,8 @@ line.
 ![](figures/embeddings/integer/integer.png)
 <br><br>
 
-Similarly there is a natural embedding of the real interval $[0, 1]$ with the 
-corresponding interval in the full real line.  
+Similarly there is a natural embedding of the real interval $[0, 1]$ with the
+corresponding interval in the full real line.
 
 <br><br>
 ![](figures/embeddings/interval/interval.png)
@@ -920,8 +920,8 @@ $$
 $$
 _Central moments_ center the embedding function around the first moment,
 $$
-\mathbb{c}_{\pi, n} 
-\equiv 
+\mathbb{c}_{\pi, n}
+\equiv
 \mathbb{E}_{\pi} [ (\iota - \mathbb{m}_{\pi, 1})^{n} ].
 $$
 
@@ -929,17 +929,17 @@ The _mean_ of a probability distribution is the corresponding first moment,
 $$
 \mathbb{m}_{\pi} = \mathbb{m}_{\pi, 1} = \mathbb{E}_{\pi} [ \iota ],
 $$
-which quantifies a sense of _where_ in the target space the probability 
-distribution is concentration its allocation.  
+which quantifies a sense of _where_ in the target space the probability
+distribution is concentration its allocation.
 
-At the same time the _variance_ of a probability distribution is the second 
+At the same time the _variance_ of a probability distribution is the second
 central moment,
 $$
-\mathbb{V}_{\pi} 
-= \mathbb{c}_{\pi, 2} 
+\mathbb{V}_{\pi}
+= \mathbb{c}_{\pi, 2}
 = \mathbb{E}_{\pi} [ (\iota - \mathbb{m}_{\pi})^{2}],
 $$
-which quantifies a sense of _breadth_ of the probability allocation around the 
+which quantifies a sense of _breadth_ of the probability allocation around the
 mean.  In practice the _standard deviation_
 $$
 \mathbb{s}_{\pi} = \sqrt{ \mathbb{V}_{\pi} }
@@ -947,28 +947,28 @@ $$
 is often more interpretable than the variance.
 
 Higher-order central moments go on to quantify more intricate properties of a
-given probability distribution.  The third central moment, for example, 
-quantifies how _asymmetrically_ probability is distributed around the mean.  
+given probability distribution.  The third central moment, for example,
+quantifies how _asymmetrically_ probability is distributed around the mean.
 
 While we can always define expectation values of a _given_ function
 $f: X \rightarrow \mathbb{R}$, a probability distribution will not always have a
-well-defined moments.  On one hand the corresponding expectation values may be 
-infinite or simply ill-posed.  On the other hand the embedding function itself 
+well-defined moments.  On one hand the corresponding expectation values may be
+infinite or simply ill-posed.  On the other hand the embedding function itself
 may not be well-defined.
 
-For example, if our space is a subset of the real numbers in more than one 
+For example, if our space is a subset of the real numbers in more than one
 dimension, $X \subseteq \mathbb{R}^{N}, \, N > 1$, then there is no unique
 embedding function and hence no well-defined moments.  We can, however, define
 _component_ moments as expectations of the _coordinate functions_,
-$\hat{x}_{n}: X \rightarrow \mathbb{R}$, that project a point $x \in X$ onto 
-each of the component real lines.  These component means and variances then 
+$\hat{x}_{n}: X \rightarrow \mathbb{R}$, that project a point $x \in X$ onto
+each of the component real lines.  These component means and variances then
 provide some quantification of how probability is allocated along each axis.
 
-On the other hand, there is no unique embedding of a sphere into the real 
+On the other hand, there is no unique embedding of a sphere into the real
 line -- any embedding turns into an equally good embedding by rotating the
-sphere before applying the embedding.  Consequently there are no unique moments 
-for distributions on spheres and many other non-Euclidean spaces!  In practice 
-one adds additional structure to distinguish unique moments, for example with 
+sphere before applying the embedding.  Consequently there are no unique moments
+for distributions on spheres and many other non-Euclidean spaces!  In practice
+one adds additional structure to distinguish unique moments, for example with
 circular moments in the case of spheres.
 
 Unfortunately it is also common to for the _mean of a function_ to refer to its
@@ -980,12 +980,12 @@ and the _variance of a function_ to refer to the expectation
 $$
 \mathbb{V}_{\pi} [f] = \mathbb{E}_{\pi} [ (f - \mathbb{E}_{\pi}[f])^{2}].
 $$
-In order to avoid confusion with the mean and variance of a probability 
+In order to avoid confusion with the mean and variance of a probability
 distribution, I will always specify the argument $[f]$ when these alternative
 notations are being used.
 
-Finally, keep in mind that moments are defined within the context of a 
-particular parameterization.  Reparameterizing to another space introduces a 
+Finally, keep in mind that moments are defined within the context of a
+particular parameterization.  Reparameterizing to another space introduces a
 _different_ embedding function which defines _different_ moments that quantify
 _different_ properties of the abstract probability system.
 
@@ -1008,11 +1008,11 @@ $$
 I(x_{1}, x_{2}) = \left\{ x \in X \mid x_{1} < x \le x_{2} \right\},
 $$
 
-The _cumulative distribution function_ is constructed from the expectation 
-values of all of the indicator functions corresponding to one-sided interval 
+The _cumulative distribution function_ is constructed from the expectation
+values of all of the indicator functions corresponding to one-sided interval
 sets,
 $$
-\Pi(x) 
+\Pi(x)
 = \mathbb{E}_{\pi} [ \mathbb{I}_{I(x)} ]
 = \mathbb{P}_{\pi} [ I(x) ].
 $$
@@ -1022,7 +1022,7 @@ $$
 <br><br>
 
 Cumulative distribution functions not only give the probability of one-sided
-intervals, the difference between cumulative distribution functions also gives 
+intervals, the difference between cumulative distribution functions also gives
 the probability of two-sided intervals.  Because
 $$
 I(x_{2}) = I(x_{1}) \cup I(x_{1}, x_{2})
@@ -1036,7 +1036,7 @@ $$
 or
 $$
 \begin{align*}
-\mathbb{P}_{\pi} [ I(x_{1}, x_{2}) ] 
+\mathbb{P}_{\pi} [ I(x_{1}, x_{2}) ]
 &=
 \mathbb{P}_{\pi} [ I(x_{2}) ] - \mathbb{P}_{\pi} [ I(x_{1}) ]
 \\
@@ -1055,12 +1055,12 @@ $$
 x_{p} = \Pi^{-1} (p).
 $$
 More descriptively, a $p$-quantile is the point in the target space where we've
-accumulated $p$ probability.  The most common quantile is $x_{0.5}$, or the 
+accumulated $p$ probability.  The most common quantile is $x_{0.5}$, or the
 _median_, which quantifies the point in the target space that splits the total
-probabilty distribution below and above.  This quantifies a different sense of 
-where a probability distribution concentrates other than the mean. 
+probabilty distribution below and above.  This quantifies a different sense of
+where a probability distribution concentrates other than the mean.
 _Tail quantiles_, such as $x_{0.05}$ and $x_{0.95}$, quantify a different sense
-of the breadth of a probability distribution than the variance. 
+of the breadth of a probability distribution than the variance.
 
 Because a reparameterization can arbitrarily reorder a space, a cumulative
 distribution function is defined only within the context of a given
@@ -1069,19 +1069,19 @@ isolate different properties of the abstract probability system.
 
 ### Histograms
 
-A _histogram_ is the collection of probabilities over a sequence of disjoint 
+A _histogram_ is the collection of probabilities over a sequence of disjoint
 intervals, $\left\{ B_{1}, \ldots, B_{N} \right\}$,
 $$
-\left\{ 
-\mathbb{P}_{\pi} [ B_{1} ], 
-\ldots, 
-\mathbb{P}_{\pi} [ B_{N} ] 
+\left\{
+\mathbb{P}_{\pi} [ B_{1} ],
+\ldots,
+\mathbb{P}_{\pi} [ B_{N} ]
 \right\},
 $$
-or, equivalently, the expectation values of the corresponding indicator 
+or, equivalently, the expectation values of the corresponding indicator
 functions,
 $$
-\left\{ 
+\left\{
 \mathbb{E}_{\pi} [ \mathbb{I}_{B_{1}} ],
 \ldots,
 \mathbb{E}_{\pi} [ \mathbb{I}_{B_{N}} ]
@@ -1092,14 +1092,14 @@ $$
 ![](figures/histogram/histogram.png)
 <br><br>
 
-For one-dimensional, and occasionally two-dimensional target spaces, histograms 
-are useful ways of visualizing the overall behavior of a probability 
+For one-dimensional, and occasionally two-dimensional target spaces, histograms
+are useful ways of visualizing the overall behavior of a probability
 distribution.
 
 # Representing Probability Distributions with Densities {#sec:density_representations}
 
 As we saw in the previous section, formal probability theory is simply the study
-of probability distributions that distribute a finite, conserved quantity across 
+of probability distributions that distribute a finite, conserved quantity across
 a space, the expectation values that such a distribution induces, and how the
 distribution behaves under transformations of the underlying space.  While there
 is myriad complexity in the details of that study, the basics concepts are
@@ -1114,9 +1114,9 @@ Recall that a probability distribution is defined as a map from the well-defined
 subsets in a $\sigma$-algebra to real numbers in the interval $[0, 1]$.  For a
 $\sigma$-algebra with only a few elements we could completely specify this
 mapping with a lookup table that associates a probability with each set, but in
-practice almost all $\sigma$-algebras are simply be too large for this to be 
+practice almost all $\sigma$-algebras are simply be too large for this to be
 practical.  In order to implement probability distributions in practice we need
-a way to define this mapping _algorithmically_ so that we can calculate 
+a way to define this mapping _algorithmically_ so that we can calculate
 probabilities and expectation values on the fly.
 
 Fortunately most probabilistic systems admit _representations_ that faithfully
@@ -1168,14 +1168,14 @@ the original probability mass function, as expected.
 
 ### The Poisson Family of Probability Mass Functions
 
-Consider, for example, the _Poisson_ probability mass functions which allocate 
-probabilities across the natural numbers, $X = \left\{0, 1, 2, \ldots \right\}$, 
+Consider, for example, the _Poisson_ probability mass functions which allocate
+probabilities across the natural numbers, $X = \left\{0, 1, 2, \ldots \right\}$,
 $$
 \pi(x \mid \lambda) = \frac{e^{-\lambda} \lambda^{x}}{x!}.
 $$
-depending on the particular value of the _intensity_ parameter $\lambda$.  In 
-particular, there is no singular Poisson probability mass function but rather a 
-family of them, and a corresponding family of probability distributions 
+depending on the particular value of the _intensity_ parameter $\lambda$.  In
+particular, there is no singular Poisson probability mass function but rather a
+family of them, and a corresponding family of probability distributions
 specified by each member of that family.
 
 In `R` the Poisson probability mass function is defined as `dpois`,
@@ -1193,7 +1193,7 @@ plot_poisson <- function(l) {
 
   par(mar = c(8, 6, 0, 0.5))
   plot(p, main="", col="white", border=c_dark_highlight,
-       xlab="x", xlim=c(-0.5, 20.5), 
+       xlab="x", xlim=c(-0.5, 20.5),
        ylab="Probability Mass", ylim=c(0, 0.2), yaxt='n',
        cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 }
@@ -1210,8 +1210,8 @@ xs <- rep(0:B, each=2)
 cdfs <- sapply(1:length(xs), function(n) ifelse(n > 1, ppois(xs[n - 1], l), 0))
 
 par(mar = c(8, 6, 0, 0.5))
-plot(xs, cdfs, type="l", main="", col=c_dark_highlight, 
-     xlab="x", xlim=c(-0.5, 20.5), 
+plot(xs, cdfs, type="l", main="", col=c_dark_highlight,
+     xlab="x", xlim=c(-0.5, 20.5),
      ylab="Cumulative Probability", ylim=c(0, 1), yaxt='n',
      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 ```
@@ -1219,7 +1219,7 @@ plot(xs, cdfs, type="l", main="", col=c_dark_highlight,
 ### Computing Probabilities
 
 It's taken quite the buildup, but we are now finally ready compute our first
-probability.  Let's start with the probability allocated to the set $A_{1}$ that 
+probability.  Let's start with the probability allocated to the set $A_{1}$ that
 we defined in [Section 1](#sec:foundation).
 ```{r}
 plot_poisson_probs <- function(A, l) {
@@ -1263,14 +1263,14 @@ cumulative probability function,
 ```{r}
 (1 - ppois(A1[length(A1)], l)) +  ppois(A1[1] - 1, l)
 ```
-We can also use the sum rule for complements that we derived in 
+We can also use the sum rule for complements that we derived in
 [Section 2.1](#sec:distribution),
 ```{r}
 1 - poisson_prob(A1, l)
 ```
 Another victory for consistency!
 
-Emboldened in our success let's now consider the probability allocated to the 
+Emboldened in our success let's now consider the probability allocated to the
 union of $A_{1}$ and $A_{2}$,
 ```{r}
 plot_poisson(l)
@@ -1345,7 +1345,7 @@ $$
 
 We can verify this by approximating the corresponding expectation values with
 exhaustive sums confined to an interval that contains most of the probability
-mass.  First we have to define the embedding function, which in `R` is an 
+mass.  First we have to define the embedding function, which in `R` is an
 explicit cast from integers to double precision floating point numbers
 ```{r}
 iota <- function(x) {
@@ -1355,17 +1355,17 @@ iota <- function(x) {
 Technically `R` will do this casting implicitly, but we're going to be very
 explicit here to emphasize each step of the formal calculation.
 
-In order to estimate the mean we sum over an interval containing the first 100 
+In order to estimate the mean we sum over an interval containing the first 100
 natural numbers,
 ```{r}
 sum(sapply(0:100, function(x) iota(x) * dpois(x, l)))
 ```
-which yields the desired value to floating point precision.  We can observe how 
-the mean estimate convergences to the exact value as we consider longer and 
+which yields the desired value to floating point precision.  We can observe how
+the mean estimate convergences to the exact value as we consider longer and
 longer intervals
 ```{r}
 xs <- 1:100
-partial_means <- sapply(xs, function(x) 
+partial_means <- sapply(xs, function(x)
                         sum(sapply(0:x, function(y) iota(y) * dpois(y, l))))
 
 plot(xs, partial_means, type="l", col=c_dark_highlight, lwd=2,
@@ -1382,13 +1382,13 @@ which again yields the exact value to floating point precision.
 ### Computing Pushforwards
 
 We have to be ever vigilant in recognizing the limitations of a representation
-such as a probability mass function.  Pushing our probability distribution 
-forward along a measurable transformation yields a pushforward distribution 
+such as a probability mass function.  Pushing our probability distribution
+forward along a measurable transformation yields a pushforward distribution
 with its own probability mass function, mean, and variance.
 
-What happens to the representative probability mass function when we 
+What happens to the representative probability mass function when we
 reparameterize with the one-to-one measurable transformation $y = \sqrt{x}$?
-Using the transformation rules introduced above we can readily visualize the 
+Using the transformation rules introduced above we can readily visualize the
 probability mass function of the pushforward distribution
 ,
 ```{r}
@@ -1410,7 +1410,7 @@ The mean of the pushforward distribution is then given by
 emp_mean <- sum(sapply(0:100, function(x) sqrt(iota(x)) * dpois(x, l)))
 emp_mean
 ```
-while the variance is given by 
+while the variance is given by
 ```{r}
 sum(sapply(0:100, function(x) (sqrt(iota(x)) - emp_mean)**2 * dpois(x, l)))
 ```
@@ -1433,20 +1433,20 @@ sum(sapply(0:100, function(x) (sqrt(iota(x)) - emp_mean)**2 * dpois(x, 10)))
 
 emp_mean <- sum(sapply(0:100, function(x) sqrt(iota(x)) * dpois(x, 25)))
 sum(sapply(0:100, function(x) (sqrt(iota(x)) - emp_mean)**2 * dpois(x, 25)))
-  
+
 emp_mean <- sum(sapply(0:100, function(x) sqrt(iota(x)) * dpois(x, 50)))
 sum(sapply(0:100, function(x) (sqrt(iota(x)) - emp_mean)**2 * dpois(x, 50)))
 ```
 For intensities above 5 or so the variance of the pushforward distribution
 stabilizes to a constant value independent of the intensity itself, decoupling
-the exact correlation between mean and variance featured in the original 
+the exact correlation between mean and variance featured in the original
 distribution.  Indeed the square root transformation is known as a _variance
 stabilizing transformation_ for distributions that admit parameterizations with
 Poissonian probability mass functions.
 
-Reparameterizations like these are often used to simplify the use of a given 
-probability distribution by pushing it forward to a space where the 
-corresponding probability mass function, or even means and variances, have 
+Reparameterizations like these are often used to simplify the use of a given
+probability distribution by pushing it forward to a space where the
+corresponding probability mass function, or even means and variances, have
 certain desirable properties.
 
 ## Probability Density Functions {#sec:pdfs}
@@ -1454,12 +1454,12 @@ certain desirable properties.
 When our space is given by the real numbers or a subset thereof,
 $X \subseteq \mathbb{R}^{N}$, we can no longer assign finite probability to
 each point $x \in X$ with a probability mass function.  The immediate problem
-is that any non-atomic subset of $X$ will contain an uncountably infinite number 
-of points and the sum of probability mass function over that subset will explode 
+is that any non-atomic subset of $X$ will contain an uncountably infinite number
+of points and the sum of probability mass function over that subset will explode
 unless we assign zero probability mass to all but a countable number of points.
 
-Instead we must utilize _probability density functions_ over which we can 
-_integrate_ to give probabilities and expectations.  Given a probability density 
+Instead we must utilize _probability density functions_ over which we can
+_integrate_ to give probabilities and expectations.  Given a probability density
 function, $\pi: X \rightarrow \mathbb{R}$, we can reconstruct probabilities as
 $$
 \mathbb{P}_{\pi} [ A ] = \int_{A} \mathrm{d} x \, \pi(x),
@@ -1485,11 +1485,11 @@ $$
 <br><br>
 
 For example, the pushforward probability density function corresponding to the
-reparameterization $g : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$ picks up an 
+reparameterization $g : \mathbb{R}^{N} \rightarrow \mathbb{R}^{N}$ picks up an
 inverse factor of the Jacobian determinent,
 $$
 \begin{align*}
-\pi_{*} (y) 
+\pi_{*} (y)
 &= \pi(g^{-1}(y)) |J(g^{-1}(x))|^{-1}
 \\
 &= \pi(g^{-1}(y))
@@ -1497,13 +1497,13 @@ $$
 \end{align*}
 $$
 
-If the measurable transformation is _many-to-one_ then we have to take into 
-account all of the roots of $y = g(x)$ for a given y, 
+If the measurable transformation is _many-to-one_ then we have to take into
+account all of the roots of $y = g(x)$ for a given y,
 $\left\{x_{1}(y), \ldots, x_{N}(y) \right\}$,
 $$
 \begin{align*}
-\pi_{*} (y) 
-&= 
+\pi_{*} (y)
+&=
 \sum_{n = 1}^{N} \pi(x_{n}(y)) |J(x_{n}(y))|^{-1}
 \\
 &=
@@ -1512,16 +1512,16 @@ $$
 \end{align*}
 $$
 
-Deriving the pushforward probability density function for transformations that 
-change the dimensionality of the space, such as marginalizations, are more 
-challenging and require analytically integrating an appropriately 
+Deriving the pushforward probability density function for transformations that
+change the dimensionality of the space, such as marginalizations, are more
+challenging and require analytically integrating an appropriately
 reparameterized probability density function over the complementary spaces.
 
 ### The Gaussian Family of Probability Density Functions
 
 To demonstrate a probability density function consider the ubiquitous
- _Gaussian_ probability density functions which allocate probabilities across 
-real line, $X = \mathbb{R}$, 
+ _Gaussian_ probability density functions which allocate probabilities across
+real line, $X = \mathbb{R}$,
 $$
 \pi(x \mid \mu, \sigma) = \frac{1}{\sqrt{2 \pi}}
 \exp \left( - \frac{1}{2} \left(\frac{x - \mu}{\sigma} \right)^{2} \right).
@@ -1573,7 +1573,7 @@ plot_norm_probs(mu, sigma, B1_min, B1_max)
 ```
 
 We can no longer try to exhaustively sum over the elements in $B_{1}$ because
-there are infinitely too many of them, but we can use the difference of 
+there are infinitely too many of them, but we can use the difference of
 cumulative distribution functions,
 ```{r}
 norm_prob <- function(B_min, B_max, mu, sigma) {
@@ -1594,7 +1594,7 @@ We can compute it using the cumulative probability function,
 ```{r}
 (1 - pnorm(B1_max, mu, sigma)) + pnorm(B1_min, mu, sigma)
 ```
-or the sum rule for complements that we derived in 
+or the sum rule for complements that we derived in
 [Section 2.1](#sec:distribution),
 ```{r}
 1 - norm_prob(B1_min, B1_max, mu, sigma)
@@ -1612,8 +1612,8 @@ norm_prob(B_union_min, B_union_max, mu, sigma)
 ```
 or by using the general sum rule introduced in [Section 2.1](#sec:distribution)
 ```{r}
-norm_prob(B1_min, B1_max, mu, sigma) + 
-norm_prob(B2_min, B2_max, mu, sigma) - 
+norm_prob(B1_min, B1_max, mu, sigma) +
+norm_prob(B2_min, B2_max, mu, sigma) -
 norm_prob(B_inter_min, B_inter_max, mu, sigma)
 ```
 Intuitively, the last term here corrects for the double counting of the
@@ -1646,14 +1646,14 @@ norm_prob(B_inter_min, B_inter_max, mu, sigma)
 ```
 or the general sum rule,
 ```{r}
-norm_prob(B1_min, B1_max, mu, sigma) + 
-norm_prob(B2_min, B2_max, mu, sigma) - 
+norm_prob(B1_min, B1_max, mu, sigma) +
+norm_prob(B2_min, B2_max, mu, sigma) -
 norm_prob(B_union_min, B_union_max, mu, sigma)
 ```
 
 ### Computing Expectations
 
-The real line has a unique embedding into the real line -- the identify 
+The real line has a unique embedding into the real line -- the identify
 function -- so means and variances are well-defined for the Gaussian family of
 probability density functions.  In line with their names, the mean of any
 member is given by the location parameter,
@@ -1667,16 +1667,16 @@ $$
 
 ### Computing Pushforwards
 
-How does a Gaussian probability density function change under the 
-reparameterization 
+How does a Gaussian probability density function change under the
+reparameterization
 $$ y = \mathrm{logistic}(x) = (1 + e^{-x})^{-1}? $$
 ```{r}
 g <- function(x) {
   return(1 / (1 + exp(-x)))
 }
-``` 
+```
 
-The first step in constructing the pushforward probability density function is 
+The first step in constructing the pushforward probability density function is
 computing the inverse of the transformation,
 ```{r}
 g_inv <- function(y) {
@@ -1705,7 +1705,7 @@ abs_J <- function(y) {
 ```
 for both of the solutions.
 
-Putting these two pieces together along with the initial probability density 
+Putting these two pieces together along with the initial probability density
 function gives the pushforward probability density function
 ```{r}
 ys <- seq(0, 1, 0.001)
@@ -1722,7 +1722,7 @@ function represents the same system just in a different space.  There are no
 Gaussian probability distributions, just probability distributions that admit
 Gaussian probability density functions in certain parameterizations!
 
-Because Gaussian probability density functions are particularly convenient to 
+Because Gaussian probability density functions are particularly convenient to
 work with there is a great deal of literature in engineering reparameterizations
 that can push a given probability density function into something more Gaussian.
 In particular the _Box-Cox_ family of transformations,
@@ -1730,7 +1730,7 @@ $$
 g(x) = \frac{ x^{\phi} - 1 }{ \phi },
 $$
 are commonly used to massage a given space and the probability density function
-it admits into something that is better-approximated with a Gaussian probability 
+it admits into something that is better-approximated with a Gaussian probability
 density function.
 
 ## Extra Credit: Radon-Nikodym Derivatives
@@ -1740,8 +1740,8 @@ from the same construction, with their differences due to the structure of
 the underlying space.
 
 First consider a _measure_, $\mu$, which behaves exactly like a probability
-distribution except for finiteness of the total measure.  Intuitively we can 
-think of measures as allocations of _volume_ to well-defined neighborhoods in a 
+distribution except for finiteness of the total measure.  Intuitively we can
+think of measures as allocations of _volume_ to well-defined neighborhoods in a
 space.
 
 Many spaces are endowed with natural measures with useful properties.  Any
@@ -1760,10 +1760,10 @@ $$
 Similarly, a given set of real numbers is endowed with a _Lebesgue_ measure
 which defines the volume of any finite rectangle to be the product of the
 lengths of each side.  We have to be careful here as the Lebesgue measure is
-natural only for the given parameterization of the real numbers -- nonlinear 
-transformations between the real numbers change the elementary rectangles and 
-hence the Lebesgue measure.  Given a particular parameterization, however, the 
-measure of any neighborhood in the real numbers and the expectation of any 
+natural only for the given parameterization of the real numbers -- nonlinear
+transformations between the real numbers change the elementary rectangles and
+hence the Lebesgue measure.  Given a particular parameterization, however, the
+measure of any neighborhood in the real numbers and the expectation of any
 function are given by the standard integration introduced in calculus,
 $$
 \mathbb{M}_{\mathcal{L}} [ A ] = \int_{A} \mathrm{d} x.
@@ -1793,9 +1793,9 @@ $$
 $$
 
 Radon-Nikodym derivatives allow us to break any probability distribution down
-into density function and a _base measure_ or _dominating measure_, which in 
-turn allows us to exploit any computational properties of the base measure.  
-Probabilities and expectation values of any probability distribution on a 
+into density function and a _base measure_ or _dominating measure_, which in
+turn allows us to exploit any computational properties of the base measure.
+Probabilities and expectation values of any probability distribution on a
 discrete space, for example, can be computed with the summations,
 $$
 \begin{align*}
@@ -1826,7 +1826,7 @@ where $\pi(x)$ is the density function,
 $$
 \pi(x) = \frac{ \mathrm{d} \pi }{ \mathrm{d} \mathcal{L} }(x).
 $$
-Indeed integration in calculus is most formally derived as expectation with 
+Indeed integration in calculus is most formally derived as expectation with
 respect to the underlying Lebesgue measure over the real numbers!
 
 Comparing to the results in the past two sections we see that probability mass
@@ -1838,9 +1838,9 @@ explicit specification and computation.
 
 This more formal perspective also helps to explain the transformation properties
 of density functions.  Counting measures are invariant under the permutation
-induced by a reparameterizations, and so the pushforward of a probability mass 
-function is just the composition of the original probability mass function with 
-the reparameterization.  Lebesgue measures, however, are not necessarily 
+induced by a reparameterizations, and so the pushforward of a probability mass
+function is just the composition of the original probability mass function with
+the reparameterization.  Lebesgue measures, however, are not necessarily
 invariant under reparameterization.  In general the pushforward of the Lebesgue
 measure requires a Jacobian determinant to account for the compression or
 expansion of volume in the transformation.  This change in the base measure
@@ -1857,10 +1857,10 @@ $$
 $$
 This implies that, while density functions themselves might not be all that
 meaningful, ratios of densities are.  This intuition can be extremely helpful
-when trying to reason about well-posed computational algorithms.  For example, 
-the importance weights in importance sampling are given by the ratio of the 
-target probability density function to the importance probability density 
-function, which is actually the corresponding Radon-Nikodym derivative and 
+when trying to reason about well-posed computational algorithms.  For example,
+the importance weights in importance sampling are given by the ratio of the
+target probability density function to the importance probability density
+function, which is actually the corresponding Radon-Nikodym derivative and
 hence has well-defined values regardless of the parameterization.
 
 # Representing Probability Distributions with Samples {#sec:sample_representations}
@@ -1906,10 +1906,10 @@ probability distribution.
 
 There is absolutely no restriction on the inner workings of a sampling
 procedure.  Provided that it can generate sequences of arbitrary length that
-satisfy the asymptotic property, _any_ mechanism for generating sequences will 
-be a valid sampling procedure.  The procedure can be generated algorithmically 
-and be completely deterministic given a known input configuration, generated 
-from unknown external inputs with unpredictable outputs, or anywhere in between. 
+satisfy the asymptotic property, _any_ mechanism for generating sequences will
+be a valid sampling procedure.  The procedure can be generated algorithmically
+and be completely deterministic given a known input configuration, generated
+from unknown external inputs with unpredictable outputs, or anywhere in between.
 It also need not have any nice cryptographic properties or otherwise be hard to
 predict from one state to the next.
 
@@ -1955,7 +1955,7 @@ expectations of a given probability distribution?  For sufficiently simple
 distributions we can generate exact samples.
 
 If each point in a sample is generated independently of the others then we
-say that the resulting sample is _exact_.  By this definition each subset of an 
+say that the resulting sample is _exact_.  By this definition each subset of an
 exact sample, including each individual point, is also an exact sample.
 
 Estimating expectations values using the empirical expectation of an exact
@@ -1964,7 +1964,7 @@ empirical expectations themselves known as _Monte Carlo estimators_.  For a
 detailed history of the Monte Carlo method see @Betancourt:2017b.  Each state
 in an exact sample is also known as a _simulation_.
 
-Monte Carlo estimators satisfy a _central limit theorem_ which guarantees that 
+Monte Carlo estimators satisfy a _central limit theorem_ which guarantees that
 the empirical expectations are distributed around the true expectations,
 $$
 \hat{f}(S_{N}) \sim
@@ -1994,7 +1994,7 @@ language.
 
 ### Playing with Poisson Samples
 
-Let's consider generating samples from a distribution that admits a Poisson 
+Let's consider generating samples from a distribution that admits a Poisson
 probability mass function.
 
 We can generate exact samples using the pseudo random number generator in `R`,
@@ -2013,7 +2013,7 @@ simu_data <- list("l" = l)
 library(rstan)
 rstan_options(auto_write = TRUE)
 
-fit <- stan(file='generate_poisson.stan', data=simu_data, 
+fit <- stan(file='generate_poisson.stan', data=simu_data,
             seed=194838, algorithm="Fixed_param",
             iter=1000, warmup=0, chains=1)
 
@@ -2030,13 +2030,13 @@ $$
 which is just the relative number of samples that fall into each bin.
 ```{r}
 plot_poisson(l)
-hist(r_samples, breaks=0:21-0.5, 
+hist(r_samples, breaks=0:21-0.5,
      col=c_dark_trans, border=c_mid_highlight_trans, probability=T, add=T)
-hist(stan_samples, breaks=0:21-0.5, 
+hist(stan_samples, breaks=0:21-0.5,
      col=c_mid_trans, border=c_light_highlight_trans, probability=T, add=T)
 ```
 
-Indeed there is no indication of discrepancies between the two samples to 
+Indeed there is no indication of discrepancies between the two samples to
 each other or the exact probability mass function.
 
 Similarly we can consider the _empirical cumulative distribution function_ of
@@ -2048,16 +2048,16 @@ xs <- rep(0:B, each=2)
 cdfs <- sapply(1:length(xs), function(n) ifelse(n > 1, ppois(xs[n - 1], l), 0))
 
 par(mar = c(8, 6, 0, 0.5))
-plot(xs, cdfs, type="l", main="", col=c_dark_highlight, 
-     xlab="x", xlim=c(-0.5, 20.5), 
+plot(xs, cdfs, type="l", main="", col=c_dark_highlight,
+     xlab="x", xlim=c(-0.5, 20.5),
      ylab="Cumulative Probability", ylim=c(0, 1), yaxt='n',
      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 
-ecdfs <- sapply(1:length(xs), function(n) 
+ecdfs <- sapply(1:length(xs), function(n)
                 ifelse(n > 1, length(r_samples[r_samples <= xs[n - 1]]), 0)) / length(r_samples)
 lines(xs, ecdfs, col=c_mid_highlight, lwd=2)
 
-ecdfs <- sapply(1:length(xs), function(n) 
+ecdfs <- sapply(1:length(xs), function(n)
                 ifelse(n > 1, length(stan_samples[stan_samples <= xs[n - 1]]), 0)) / length(stan_samples)
 lines(xs, ecdfs, col=c_light_highlight, lwd=2)
 ```
@@ -2077,7 +2077,7 @@ welford_summary <- function(x) {
   return(summary)
 }
 ```
-We can then use the Welford accumulator to compute the Monte Carlo estimator of 
+We can then use the Welford accumulator to compute the Monte Carlo estimator of
 a function and an estimate of its Monte Carlo Standard Error.
 ```{r}
 compute_mc_stats <- function(x) {
@@ -2086,7 +2086,7 @@ compute_mc_stats <- function(x) {
 }
 ```
 
-In order to estimate the probability of a set we estimate the expectation value 
+In order to estimate the probability of a set we estimate the expectation value
 of the corresponding indicator function.
 ```{r}
 indicator <- function(x, A) {
@@ -2105,30 +2105,30 @@ This is consistent with the exact computation,
 ```{r}
 poisson_prob(A1, l)
 ```
-And we an readily visualize how the Monte Carlo estimator converges to the exact 
-value as the size of the sample increases.  The bands here in red cover the 
-Monte Carlo estimator plus/minus 1, 2, and 3 standard errors to demonstrate the 
+And we an readily visualize how the Monte Carlo estimator converges to the exact
+value as the size of the sample increases.  The bands here in red cover the
+Monte Carlo estimator plus/minus 1, 2, and 3 standard errors to demonstrate the
 variation expected from the Monte Carlo Central Limit Theorem.
 ```{r}
 iter <- 2:1000
 mc_stats <- sapply(iter, function(n) compute_mc_stats(pushforward_samples[0:n]))
-     
+
 plot_mc_evo <- function(iter, mc_stats, truth) {
-  plot(1, type="n", main="", 
+  plot(1, type="n", main="",
        xlab="Iteration", xlim=c(0, max(iter)),
        ylab="Monte Carlo Estimator",
        ylim=c(min(mc_stats[1,] - 3 * mc_stats[2,]), max(mc_stats[1,] + 3 * mc_stats[2,])))
-  
-  polygon(c(iter, rev(iter)), 
-          c(mc_stats[1,] - 3 * mc_stats[2,], 
+
+  polygon(c(iter, rev(iter)),
+          c(mc_stats[1,] - 3 * mc_stats[2,],
             rev(mc_stats[1,] + 3 * mc_stats[2,])),
           col = c_light_highlight, border = NA)
   polygon(c(iter, rev(iter)),
-          c(mc_stats[1,] - 2 * mc_stats[2,], 
+          c(mc_stats[1,] - 2 * mc_stats[2,],
             rev(mc_stats[1,] + 2 * mc_stats[2,])),
           col = c_mid, border = NA)
-  polygon(c(iter, rev(iter)), 
-          c(mc_stats[1,] - 1 * mc_stats[2,], 
+  polygon(c(iter, rev(iter)),
+          c(mc_stats[1,] - 1 * mc_stats[2,],
             rev(mc_stats[1,] + 1 * mc_stats[2,])),
           col = c_mid_highlight, border = NA)
   lines(iter, mc_stats[1,], col=c_dark, lwd=2)
@@ -2138,7 +2138,7 @@ plot_mc_evo <- function(iter, mc_stats, truth) {
 plot_mc_evo(iter, mc_stats, poisson_prob(A1, l))
 ```
 
-Now we can apply this machinery to any desired probabilist computation.  The 
+Now we can apply this machinery to any desired probabilist computation.  The
 probability of the complement of $A_{1}$?
 ```{r}
 pushforward_samples = sapply(stan_samples, function(x) 1 - indicator(x, A1))
@@ -2163,7 +2163,7 @@ compute_mc_stats(pushforward_samples)
 poisson_prob(A_inter, l)
 ```
 
-The mean of the distribution specified by this Poisson probability mass 
+The mean of the distribution specified by this Poisson probability mass
 function?
 ```{r}
 pushforward_samples = sapply(stan_samples, function(x) iota(x))
@@ -2179,8 +2179,8 @@ compute_mc_stats(pushforward_samples)
 ```
 Both are consistent with the expected values of 5.
 
-Finally we can use our samples to quantity the pushforward distribution under 
-the reparameterization $g : x \mapsto \sqrt{x}$.  The mean, for example, is 
+Finally we can use our samples to quantity the pushforward distribution under
+the reparameterization $g : x \mapsto \sqrt{x}$.  The mean, for example, is
 estimated as
 ```{r}
 pushforward_samples = sapply(stan_samples, function(x) sqrt(x))
@@ -2197,16 +2197,16 @@ bin_edges <- c(-0.5, sapply(1:21, function(x) sqrt(x - 0.5)))
 
 ps <- hist(pushforward_samples, breaks=bin_edges, plot=F)
 ps$density <- ps$counts / 1000
-plot(ps, col=c_mid_trans, border=c_mid_highlight_trans, 
+plot(ps, col=c_mid_trans, border=c_mid_highlight_trans,
      main="", xlab="y = sqrt(x)", yaxt='n', ylab="Probability Mass",
      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
-           
+
 p <- hist(0, breaks=bin_edges, plot=F)
 p$density <- dpois(0:20, l)
 plot(p, col=c_dark_trans, border=c_dark_highlight_trans, add=T)
 ```
 
-The ease with which we can construct this histogram makes it an invaluable tool 
+The ease with which we can construct this histogram makes it an invaluable tool
 for investigating pushforward distributions and verifying analytic calculations.
 
 ### Playing with Gaussian Samples
@@ -2222,20 +2222,20 @@ writeLines(readLines("generate_normal.stan"))
 
 simu_data <- list("mu" = mu, "sigma" = sigma)
 
-fit <- stan(file='generate_normal.stan', data=simu_data, 
+fit <- stan(file='generate_normal.stan', data=simu_data,
             seed=194838, algorithm="Fixed_param",
             iter=1000, warmup=0, chains=1)
 
 stan_samples <- extract(fit)$x[]
 ```
 
-We can compare these two samples to each other, and the exact Gaussian 
+We can compare these two samples to each other, and the exact Gaussian
 probability density function, by constructing their empirical histograms,
 ```{r}
 plot_norm(mu, sigma)
-hist(r_samples, breaks=seq(-8, 8, 0.5), 
+hist(r_samples, breaks=seq(-8, 8, 0.5),
      col=c_dark_trans, border=c_mid_highlight_trans, probability=T, add=T)
-hist(stan_samples, breaks=seq(-8, 8, 0.5), 
+hist(stan_samples, breaks=seq(-8, 8, 0.5),
      col=c_mid_trans, border=c_light_highlight_trans, probability=T, add=T)
 ```
 
@@ -2244,7 +2244,7 @@ or their empirical cumulative distribution functions,
 xs <- seq(-8, 8, 0.1)
 cdfs <- sapply(xs, function(x) pnorm(x, mu, sigma))
 
-plot(xs, cdfs, type="l", lwd=2, main="", col=c_dark_highlight, xlab="x", xlim=c(-8, 8), 
+plot(xs, cdfs, type="l", lwd=2, main="", col=c_dark_highlight, xlab="x", xlim=c(-8, 8),
      ylab="Cumulative Probability", ylim=c(0, 1), yaxt='n',
      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5)
 
@@ -2296,7 +2296,7 @@ which is consistent with the exact value,
 
 The union of $B_{1}$ and $B_{2}$?
 ```{r}
-pushforward_samples = 
+pushforward_samples =
   sapply(stan_samples, function(x) indicator(x, B_union_min, B_union_max))
 compute_mc_stats(pushforward_samples)
 ```
@@ -2307,7 +2307,7 @@ norm_prob(B_union_min, B_union_max, mu, sigma)
 
 The intersection of $B_{1}$ and $B_{2}$?
 ```{r}
-pushforward_samples = 
+pushforward_samples =
   sapply(stan_samples, function(x) indicator(x, B_inter_min, B_inter_max))
 compute_mc_stats(pushforward_samples)
 ```
@@ -2316,7 +2316,7 @@ which at this point is, unsurprisingly, consistent with the exact value!
 norm_prob(B_inter_min, B_inter_max, mu, sigma)
 ```
 
-How about a Monte Carlo estimator of the mean?  We need to estimate the  
+How about a Monte Carlo estimator of the mean?  We need to estimate the
 expectation value of the identity function,
 ```{r}
 identity <- function(x) {
@@ -2334,14 +2334,14 @@ pushforward_samples = sapply(stan_samples, function(x) (identity(x) - mu)**2)
 compute_mc_stats(pushforward_samples)
 ```
 
-Now let's consider the reparameterization $y = \mathrm{logistic}(x)$.  This 
+Now let's consider the reparameterization $y = \mathrm{logistic}(x)$.  This
 transformation is straightforward to analyze by considering the pushforward
 samples,
 ```{r}
 pushforward_samples = sapply(stan_samples, function(x) g(x))
 compute_mc_stats(pushforward_samples)
 ```
-In particular we can readily study the pushforward probability density 
+In particular we can readily study the pushforward probability density
 function by histogramming the pushforward samples,
 ```{r}
 ys <- seq(0, 1, 0.001)
@@ -2350,14 +2350,14 @@ pdfs <- sapply(ys, function(y) dnorm(g_inv(y), mu, sigma) * abs_J(y))
 plot(ys, pdfs, type="l", col=c_dark_highlight, lwd=2,
      xlab="y = logistic(x)", ylab="Probability Density",
      cex.lab=1.5, cex.axis=1.5, cex.main=1.5, cex.sub=1.5, yaxt='n')
-     
+
 hist(pushforward_samples, breaks=seq(0, 1, 0.05), probability=T,
      col=c_mid_trans, border=c_mid_highlight_trans, add=T)
 ```
 
-Pushing forward probability density functions is frustrating even in simple 
+Pushing forward probability density functions is frustrating even in simple
 cases like an initial Gaussian, and even experts routinely make mistakes when
-attempting these calculations.  Sampling is a critical tool for verifying 
+attempting these calculations.  Sampling is a critical tool for verifying
 calculations or identifying errors and it has saved your humble author more
 times then he wishes to admit.
 
@@ -2365,29 +2365,29 @@ times then he wishes to admit.
 
 Now that we have a basic understanding of the abstract definition of probability
 theory and some of the ways in which we can implement probabilistic calculations
-in practice we are _finally_ ready to consider the applications of probability 
-theory and the corresponding philosophical interpretations of this very generic, 
-conserved quantity that we've been distributing.  Congratulate yourself for 
+in practice we are _finally_ ready to consider the applications of probability
+theory and the corresponding philosophical interpretations of this very generic,
+conserved quantity that we've been distributing.  Congratulate yourself for
 getting this far!
 
 ## Physical Distributions
 
 An immediate application of probability theory is modeling the conserved
 quantities that arise in physical models of the world, such as physical mass.
-Physical mass can be distributed across a solid object in myriad ways, and the 
-exact distribution affects how that object interacts with the world.  At the 
-same time mass flows dynamically through liquids and gasses as they interact 
+Physical mass can be distributed across a solid object in myriad ways, and the
+exact distribution affects how that object interacts with the world.  At the
+same time mass flows dynamically through liquids and gasses as they interact
 with the surrounding environment.  Time-dependent probability distributions that
 quantify the distribution of mass, charge, and other conserved quantities are a
 critical element of the corresponding mathematical physics.
 
 ## Population Distributions
 
-Another application of probability theory arises when we select individuals from 
+Another application of probability theory arises when we select individuals from
 a large _population_.  As we select individuals we observe varying behaviors,
-such as political preference, or properties, such as height or age.  If we 
-assume that any process that selects individuals from the population is ignorant  
-of these characteristics then we can model the heterogeneity of the 
+such as political preference, or properties, such as height or age.  If we
+assume that any process that selects individuals from the population is ignorant
+of these characteristics then we can model the heterogeneity of the
 characteristics themselves using probability distributions.
 
 ## Frequentist Statistics
@@ -2397,10 +2397,10 @@ to the observations that we make in order to learn about a particular system.
 The approach presumes that this variability is sufficiently simple that we can
 model it with a probability distribution -- the more probability allocated to
 a neighborhood of the observation space, $Y$, the more likely we are to observe
-points in that neighborhood.  Probability becomes a quantification of the 
+points in that neighborhood.  Probability becomes a quantification of the
 apparent randomness of observational outcomes.  In practice this mathematical
-assumption cannot distinguish between _ontological_ randomness that is inherent 
-to the world or _epistemological_ randomness that is due to our limited ability 
+assumption cannot distinguish between _ontological_ randomness that is inherent
+to the world or _epistemological_ randomness that is due to our limited ability
 to resolve the world, but philosophically many frequentists presume the former.
 
 From this perspective the outcomes of the observational process are quantified
@@ -2414,7 +2414,7 @@ $\pi(y ; \theta)$ parameterized by the space $\theta \in \Theta$.  Inferences
 about this model take the form of _estimators_ that map observations into some
 selection of this model configuration space, such as points or intervals, that
 is considered to be consistent with the input observation.  The performance of
-these estimators can be defined as expectations of carefully chosen loss 
+these estimators can be defined as expectations of carefully chosen loss
 functions with respect to the data generating processes in the model.
 
 ## Bayesian Inference
@@ -2423,8 +2423,8 @@ Bayesian inferences uses probability theory to model any self-consistent
 quantification of uncertainty.  This general perspective subsumes the
 frequentist perspective but also allows us to use probability to quantify which
 model configurations are most consistent with an observation.  Using the model
-we update a  _prior distribution_ over the model configuration space that 
-quantifies our domain expertise into a _posterior distribution_ over the model 
+we update a  _prior distribution_ over the model configuration space that
+quantifies our domain expertise into a _posterior distribution_ over the model
 configuration space that incorporates both our domain expertise and the
 information encoded in the observed data.
 
@@ -2435,7 +2435,7 @@ applications are not mutually exclusive and in practice are often used _at the
 same time_.
 
 For example, consider a binary space $X = {0, 1}$ that corresponds to the two
-states of a coin with 0 denoted tails and 1 denoted heads.  Any probability 
+states of a coin with 0 denoted tails and 1 denoted heads.  Any probability
 distribution over $X$ can be quantified with the probability allocated to heads,
 $p$, which gives the consistent probability allocations
 $$
@@ -2450,17 +2450,17 @@ $$
 \end{align*}
 $$
 
-If we flip an actual coin then this distribution could be applied in a 
+If we flip an actual coin then this distribution could be applied in a
 frequentist manner to model the variability of outcomes given the parameter $p$,
-which denotes the unknown bias for heads.  But then we can also introduce 
-Bayesian inference to quantify which biases are consistent with an observed 
-sequence of flips.  So at once we have probability as a parameter, probability 
-distribution modeling frequentist variation in an observable process, and 
-probability distribution quantifying which parameters are consistent with 
-previously observed data.  
+which denotes the unknown bias for heads.  But then we can also introduce
+Bayesian inference to quantify which biases are consistent with an observed
+sequence of flips.  So at once we have probability as a parameter, probability
+distribution modeling frequentist variation in an observable process, and
+probability distribution quantifying which parameters are consistent with
+previously observed data.
 
-Moreover, if the coins being flipped by an ensemble of individual experimenters, 
-then we might also introduce probability distribution to model the variation in 
+Moreover, if the coins being flipped by an ensemble of individual experimenters,
+then we might also introduce probability distribution to model the variation in
 biases from experimenter to experimenter.  It's probability all the way down.
 
 Probability theory has many applications and it's only by considering them all
@@ -2468,11 +2468,11 @@ that we take full advantage of its potential!
 
 # Conclusion
 
-Probability theory is a powerful mathematical tool, but often that power is 
-undercut by confusion in exactly what objects and computations probability 
-theory defines, and how we can implement those computations in practice.  By 
-very carefully untangling the abstract theory from the practical implementations 
-and the many applications, we can take a more principled introduction through 
+Probability theory is a powerful mathematical tool, but often that power is
+undercut by confusion in exactly what objects and computations probability
+theory defines, and how we can implement those computations in practice.  By
+very carefully untangling the abstract theory from the practical implementations
+and the many applications, we can take a more principled introduction through
 the theory and ensure that we wield it responsibly.
 
 # Acknowlegements
@@ -2482,13 +2482,13 @@ Salgado, xcurry\@github, Sean Talts, Elea McDonnell Feit, Christoph Bannwarth,
 Boris Shilov, ssp3nc3r\@github, Max Kesin, and Ravin Kumar for helpful comments
 as well as the feedback from those who have attended my courses.
 
-A very special thanks to everyone supporting me on Patreon: Aki Vehtari, Austin 
-Rochford, Bo Schwartz Madsen, Cat Shark, Charles Naylor, Colin Carroll, Daniel 
-Simpson, David Pascall, David Roher, Elad Berkman, Finn Lindgren, Granville 
-Matheson, Hernan Bruno, J Michael Burgess, Joel Kronander, Jonas Beltoft 
-Gehrlein, Joshua Mayer, Justin Bois, Lars Barquist, Marek Kwiatkowski, Maurits 
-van der Meer, Maxim Kesin, Michael Dillon, Ole Rogeberg, Oscar Olvera, 
-Riccardo Fusaroli, Richard Torkar, Sam Petulla, Sam Zorowitz, Seo-young Kim, 
+A very special thanks to everyone supporting me on Patreon: Aki Vehtari, Austin
+Rochford, Bo Schwartz Madsen, Cat Shark, Charles Naylor, Colin Carroll, Daniel
+Simpson, David Pascall, David Roher, Elad Berkman, Finn Lindgren, Granville
+Matheson, Hernan Bruno, J Michael Burgess, Joel Kronander, Jonas Beltoft
+Gehrlein, Joshua Mayer, Justin Bois, Lars Barquist, Marek Kwiatkowski, Maurits
+van der Meer, Maxim Kesin, Michael Dillon, Ole Rogeberg, Oscar Olvera,
+Riccardo Fusaroli, Richard Torkar, Sam Petulla, Sam Zorowitz, Seo-young Kim,
 Seth Axen, Simon Duane, Stephen Oates, Stijn, and Vladislavs Dovgalecs.
 
 # Original Computing Environment
